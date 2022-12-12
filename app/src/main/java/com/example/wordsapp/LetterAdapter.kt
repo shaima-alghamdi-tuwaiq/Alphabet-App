@@ -24,6 +24,7 @@ import android.view.accessibility.AccessibilityNodeInfo
 import android.widget.Button
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
+import com.example.wordsapp.constants.Constants
 
 /**
  * Adapter for the [RecyclerView] in [MainActivity].
@@ -67,9 +68,9 @@ class LetterAdapter :
 
             val context = holder.itemView.context
 
-            // Create Intent
-            val intent = Intent(context, DetailActivity::class.java)
-            intent.putExtra("letter", holder.button.text.toString())
+            // Create Explicit Intent
+            val intent = Intent(context, DetailActivity::class.java) // instance
+            intent.putExtra(Constants.LETTER, holder.button.text.toString()) // add data to be sent to next activity
             context.startActivity(intent)
         }
 

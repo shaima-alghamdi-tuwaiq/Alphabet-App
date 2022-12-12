@@ -19,6 +19,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.wordsapp.constants.Constants
 import com.example.wordsapp.databinding.ActivityDetailBinding
 
 
@@ -36,7 +37,7 @@ class DetailActivity : AppCompatActivity() {
         // Retrieve the LETTER from the Intent extras
         // intent.extras.getString returns String? (String or null)
         // so toString() guarantees that the value will be a String
-        val letterId = intent?.extras?.getString("letter").toString()
+        val letterId = intent?.extras?.getString(Constants.LETTER).toString()
 
         val recyclerView = binding.recyclerView
         recyclerView.layoutManager = LinearLayoutManager(this)

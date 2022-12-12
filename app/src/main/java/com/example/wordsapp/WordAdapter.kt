@@ -16,6 +16,8 @@
 package com.example.wordsapp
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
@@ -24,6 +26,7 @@ import android.view.accessibility.AccessibilityNodeInfo
 import android.widget.Button
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
+import com.example.wordsapp.constants.Constants
 
 /**
  * Adapter for the [RecyclerView] in [DetailActivity].
@@ -41,7 +44,7 @@ class WordAdapter(private val letterId: String, context: Context) :
             // Returns items in a collection if the conditional clause is true,
             // in this case if an item starts with the given letter,
             // ignoring UPPERCASE or lowercase.
-            .filter { it.startsWith(letterId, ignoreCase = true) }
+            .filter{ it.startsWith(letterId, ignoreCase = true) } // lambda function
             // Returns a collection that it has shuffled in place
             .shuffled()
             // Returns the first n items as a [List]
@@ -81,6 +84,15 @@ class WordAdapter(private val letterId: String, context: Context) :
 
         // Set the text of the WordViewHolder
         holder.button.text = item
+
+        holder.button.setOnClickListener {
+            // create link to search on web browser
+            val queryUrl : Uri = Uri.parse("${Constants.SEARCH_PREFIX}${item}")
+
+            // create implicit intent to search web
+            val intent = Intent(Intent.ACTION_VIEW, queryUrl)
+            context.startActivity(intent)
+        }
 
     }
     // Setup custom accessibility delegate to set the text read with
