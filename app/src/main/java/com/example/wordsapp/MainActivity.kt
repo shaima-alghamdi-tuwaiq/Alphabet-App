@@ -30,74 +30,10 @@ import com.example.wordsapp.databinding.ActivityMainBinding
  */
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var recyclerView: RecyclerView
-    // layout manager state
-    private var isLinearLayoutManager = true
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        recyclerView = binding.recyclerView
-        // Sets the LinearLayoutManager of the recyclerview
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = LetterAdapter()
-
     }
 
-    // check layout state
-    private fun chooseLayout() {
-        if (isLinearLayoutManager) { // if true
-            recyclerView.layoutManager = LinearLayoutManager(this)
-        } else {
-            recyclerView.layoutManager = GridLayoutManager(this, 4)
-        }
-        recyclerView.adapter = LetterAdapter()
-    }
-
-    // change icon of option menu
-    private fun setIcon(menuItem: MenuItem?) {
-        // nothing to change
-        if (menuItem == null)
-            return
-
-        // Set the drawable for the menu icon based on which LayoutManager is currently in use
-
-        // An if-clause can be used on the right side of an assignment if all paths return a value.
-        // The following code is equivalent to
-        // if (isLinearLayoutManager)
-        //     menu.icon = ContextCompat.getDrawable(this, R.drawable.ic_grid_layout)
-        // else menu.icon = ContextCompat.getDrawable(this, R.drawable.ic_linear_layout)
-        menuItem.icon =
-            if (isLinearLayoutManager) // if true
-                ContextCompat.getDrawable(this, R.drawable.ic_view_module)
-            else ContextCompat.getDrawable(this, R.drawable.ic_view_list)
-    }
-
-    // Create option menu
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.layout_menu, menu)
-
-        // menu button (icon)
-        val layoutButton = menu?.findItem(R.id.action_switch_layout)
-        setIcon(layoutButton)
-
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when(item.itemId) {
-            R.id.action_switch_layout -> {
-                isLinearLayoutManager = !isLinearLayoutManager
-                chooseLayout()
-                setIcon(item)
-                return true
-            }
-            else ->
-                super.onOptionsItemSelected(item)
-
-        }
-    }
 }
